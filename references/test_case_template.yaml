@@ -1,0 +1,43 @@
+# Reference specification and data fixture conventions for qa-spec-analyst
+
+module:
+  id: "DOMAIN_CODE"            # Uppercase module identifier matching ID prefix (e.g., AUTH, ORD)
+  domain: "Domain Display Name"
+  target_spec: "specs/openapi.yaml"
+  product_spec: "specs/product_spec.md"
+
+module_defaults:
+  preconditions:
+    - "Target service is accessible in test environment"
+
+test_cases:
+  - id: "TC-DOMAIN_CODE-001"
+    title: "Descriptive scenario summary"
+    type: "positive"           # Options: positive | negative | boundary | security | rbac
+    priority: "P0"             # Options: P0 | P1 | P2
+    coverage:
+      endpoints:
+        - "METHOD /exact/path/from/openapi"
+      requirement_ref: "PRD-REF-ID"
+
+    preconditions:
+      - "Specific database or account state required before step execution"
+
+    # Context variable syntax conventions:
+    #   {{ $faker.<type> }}      -> Dynamic generation (e.g. {{ $faker.email }})
+    #   {{ $fixture.<name> }}    -> Shared test harness fixture
+    #   {{ $env.<KEY> }}         -> Environment variable
+    #   {{ $extract.<var> }}     -> Variable extracted from earlier step
+    test_data:
+      payload:
+        field_name: "value"
+
+    steps:
+      - step: 1
+        action: "Send HTTP request"
+        expected_status: 200
+        extract:
+          captured_var: "response.data.id"
+
+    expected_results:
+      - "Explicit assertion on response schema or business state"

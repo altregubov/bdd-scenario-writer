@@ -43,7 +43,7 @@ uv run scripts/index_cases.py
 
 ### Step 2: Gap & Cross-Specification Analysis
 
-- Read the technical contract at `specs/openapi.yaml` and the requirements document at `specs/product_spec.md`.
+- Read the technical contract at `specs/openapi.json` and the requirements document at `specs/product_spec.md`.
 - Cross-reference existing coverage against requirements to identify gaps:
   - **Happy Path:** Missing standard business flows.
   - **Boundary Value Analysis (BVA):** Min/max boundaries on numeric and string fields.
